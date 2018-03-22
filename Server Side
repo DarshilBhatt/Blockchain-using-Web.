@@ -1,0 +1,107 @@
+ <?php
+
+function setHeight($minheight = 50) {
+    
+    echo "The height is : $minheight <br>";
+
+}
+
+setHeight(350);
+
+setHeight(); // will use the default value of 50
+
+setHeight(135);
+
+setHeight(80);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    // collect value of input field
+    
+    $name = $_POST['fname'];
+    
+    if (empty($name)) {
+        
+        echo "Name is empty";
+    
+    } else {
+        
+        echo $name;
+    
+    }
+
+}
+
+$servername = "localhost";
+
+$username = "username";
+
+$password = "password";
+
+$dbname = "myDB";
+
+// Create connection
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+
+if ($conn->connect_error) {
+    
+    die("Connection failed: " . $conn->connect_error);
+
+}
+
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    
+    // output data of each row
+    
+    while($row = $result->fetch_assoc()) {
+        
+        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+    
+    }
+
+} else {
+    
+    echo "0 results";
+}
+
+$conn->close();
+
+?
+
+if (mysqli_connect_errno())
+  
+  {
+  
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  
+  }
+
+$sql="SELECT Lastname,Age FROM Persons ORDER BY Lastname";
+
+if ($result=mysqli_query($con,$sql))
+  
+  {
+  
+  // Fetch one and one row
+  
+  while ($row=mysqli_fetch_row($result))
+    
+    {
+    
+    printf ("%s (%s)\n",$row[0],$row[1]);
+    
+    }
+  
+  
+  // Free result set
+  
+  mysqli_free_result($result);
+
+?> 
